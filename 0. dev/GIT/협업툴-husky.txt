@@ -1,0 +1,162 @@
+협업 툴 정리(husky 포함) 
+- 허스키 참고 https://www.npmjs.com/package/@nestjs/typeorm?activeTab=explore
+
+eslint
+yarn add eslint --save-dev
+CRA의 경우 내장되어 있기 때문에 따로 설치하지 않아도 됨
+
+prettier
+yarn add prettier --save-dev
+
+허스키 종속성용
+yarn add eslint-plugin-prettier
+
+eslint-config-prettier
+yarn add eslint-config-prettier --save-dev
+formatting 관련 룰 중복 방지를 위해 설치
+
+허스키 종속성용 -- 해당 설정 미사용
+yarn add eslint-plugin-simple-import-sort
+
+
+optional
+package들을 설치하면 terminal에서 명령어를 통해서 eslint와 prettier를 실행할 수 있음,
+IDE에서는 일반적으로 terminal 명령어로 실행하는 것 뿐만 아니라,
+에디터 차원에서 파일을 저장할 때 formatting을 적용해주고,
+에디터에서 eslint의 메세지들을 확인할 수 있게 해주는 기능들을
+플러그인 형태로 제공하기에 원할시 사용할 수 있음
+
+
+설정 
+.prettierrc.js / https://prettier.io/docs/en/options.html
+
+module.exports = {
+  printWidth: 100, // printWidth default 80 => 100 으로 변경
+  singleQuote: true, // "" => ''
+  arrowParens: "avoid", // arrow function parameter가 하나일 경우 괄호 생략
+};
+
+.eslintrc / https://eslint.org/docs/latest/rules/
+
+{
+  "extends": ["react-app", "prettier/prettier"],
+  "plugins": ["react-hooks","prettier"],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
+    "comma-dangle": ["error", "always-multiline"],
+    "object-curly-spacing": ["error", "always"],
+    "space-in-parens": ["error", "never"],
+    "computed-property-spacing": ["error", "never"],
+    "comma-spacing": ["error", { "before": false, "after": true }],
+    "eol-last": ["error", "always"],
+    "quotes": ["error", "single"],
+    "no-tabs": "error",
+    "semi": ["error", "never"],
+    "import/no-anonymous-default-export": 0,
+    "object-shorthand": "error",
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "*", "next": "return" }
+    ],
+    "@typescript-eslint/no-redeclare": 0
+  }
+}
+
+optional .eslintrc.json
+{
+  "extends": "next/core-web-vitals"
+}
+
+깃 협업 툴 / 버전관리 강제성
+husky / https://typicode.github.io/husky/#/?id=articles
+
+npm install husky --save-dev
+or
+yarn add husky --save-dev
+
+npx husky install - (처음 husky 세팅하는 사람만 실행 필요)
+
+// package.json
+{
+  "scripts": {
+    "postinstall": "husky install"
+  },
+}
+
+// 현재로서 이하 필요 없음
+{
+  "scripts": {
+    "postinstall": "husky install",
+		"format": "prettier --write .",
+		"lint": "eslint --cache .",
+  },
+}
+
+훅 생성
+
+npx husky add .husky/pre-commit "npm run format"
+or
+npx husky add .husky/pre-commit "yarn run lint"
+
+npx husky add .husky/pre-push "npm run lint"
+or
+npx husky add .husky/pre-push "yarn run lint"
+
+
+// "lint-es": "eslint --cache ." 와 같이 eslint를 이용해 상세한 설정도 가능
+이때 git hook은
+npx husky add .husky/pre-commit "yarn run lint-es" 가 되어야 함.
+nextjs 13 기준 lint scripts가 있기 때문에 위와 같이 설정 가능
+"scripts": {
+    "postinstall": "husky install",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "format": "prettier --write .",
+    "lint-es": "eslint --cache",
+    "lint": "next lint"
+  },
+
+======================================
+staged 추가
+
+npm install --save-dev husky
+
+yarn add -D husky
+
+  "husky": {
+    "hooks": {
+      "pre-commit": "eslint . --fix && prettier --write",
+      "pre-push": "eslint . --fix && prettier --write"
+    }
+  },
+
+npm install --save-dev lint-staged
+
+yarn add -D lint-staged
+
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "pages/**/*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+
+  "husky": {
+    "hooks": {
+      "pre-commit": "eslint . --fix && prettier --write",
+      "pre-push": "eslint . --fix && prettier --write"
+    }
+  },
+
+

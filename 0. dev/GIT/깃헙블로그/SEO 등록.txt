@@ -1,0 +1,14 @@
+https://jinhoooooou.github.io/making-blog/making-blog-8/
+Google Search Console
+URL로 등록 (DNS는 커스텀 도메인이 없어 불가
+
+
+https://searchadvisor.naver.com/
+네이버
+
+
+-- 공통 설정
+robots.txt
+
+사이트맵 제작
+https://www.xml-sitemaps.com/

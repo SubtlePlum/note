@@ -1,0 +1,10 @@
+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
+
+
+04-24 토큰 변경
+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
+
+05-10 토큰 변경
+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
+
+github_pat_는 제외하고 환경변수에 넣을 것

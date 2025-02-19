@@ -1,0 +1,135 @@
+next js 적용
+
+
+다이나믹 라우팅을 위해서는 pages 디렉토리 안에
+소문자로 이뤄진 export default component를 통해 적용할 수 있다
+그렇지 않으면 404 에러를 만날 수 있다.
+--------------------------
+현재 주소값 가져오기
+import { useRouter } from 'next/router'
+const router = useRouter();
+console.log(router);
+
+이전 페이지로
+onClick={() => router.back()}
+--------------------------
+
+이미지 사용하기
+import Image from "next/image";
+
+외부 이미지 링크 사용하는 법
+<Image
+            src={baseImage}
+            alt="프로필사진"
+            width={60}
+            height={60}
+            unoptimized={true}
+          />
+porps를 채워주고 unoptimized를 true로 설정해준다.
+
+---------------------------
+
+SEO / script 사용 방법
+
+SEO
+Head 태그 안에 meta 데이터등 삽입 가능
+
+Script
+root 파일(_app.tsx 등)에 script 설정
+
+import Script from "next/script";
+<Script
+        src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_KEY} &autoload=false`}
+        // strategy="beforeInteractive"
+      />
+
+---------------------------
+
+env 환경변수가 undefined로 나올 때 처리방법
+next.config.js에 env를 추가해준다.
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+  env: {
+    NEXT_PUBLIC_CLOUDFLARE_CLIENT_ID:
+      process.env.NEXT_PUBLIC_CLOUDFLARE_CLIENT_ID,
+    NEXT_PUBLIC_CLOUDFLARE_API_TOKEN:
+      process.env.NEXT_PUBLIC_CLOUDFLARE_API_TOKEN,
+  },
+};
+
+module.exports = nextConfig;
+
+---------------------------
+
+nextjs 로딩 이벤트 처리
+import Router from "next/router";
+
+// 로딩 처리
+  const [nowLoading, setNowLoading] = useState(true);
+  useEffect(() => {
+    const start = () => {
+      setNowLoading(true);
+    };
+    const end = () => {
+      setNowLoading(false);
+    };
+    Router.events.on("routeChangeStart", start);
+    Router.events.on("routeChangeComplete", end);
+    Router.events.on("routeChangeError", end);
+    return () => {
+      Router.events.off("routeChangeStart", start);
+      Router.events.off("routeChangeComplete", end);
+      Router.events.off("routeChangeError", end);
+    };
+  }, []);
+
+---------------------------
+getServerSideProps - 서버사이드프롭스
+
+빌드와 상관없이, page가 요청받을때마다 호출되어 pre-rendering함
+SSR 개념으로 pre-render가 꼭 필요한 동적 데이터가 있는 페이지에 사용한다.
+성능은 getStaticProps에 뒤지지만 내용을 언제든 동적으로 수정이 가능하다.
+곧, 내정보페이지같은 수정 등에 용이하다.
+
+CDN에 캐싱되지 않기때문에 느리다. - 정말 필요할 때만 사용해야 한다.
+
+서버에서 실행되기 때문에 브라우저에서 실행되진 않는다. - 터미널을 통해 값 확인 가능
+
+context 구성
+params: 페이지가 다이나믹 라우트를 사용할 때, 라우트  파라미터가 들어오면서 구성됨
+req: HTTP Request 객체
+res: HTTP Response 객체
+query: URL의 ? :id 등에 있는 쿼리 스트링
+preview: 페이지가 프리뷰모드인지 아닌지
+previewData: setPreviewData 메서드에 의해 셋팅되는 값
+
+패치를 위한 import 
+yarn add isomorphic-unfetch
+import fetch from 'isomorphic-unfetch';
+
+export const getServerSideProps = async (context: any) => {
+  try {
+    const { req, query } = context;
+    const data: any = await (
+      await fetch(
+        // `http://localhost:3000/api/videos/${query.id}`,
+        `http://localhost:3000/api/videos`,
+      )
+    ).json();
+    const videoDatas = data;
+    return {
+      props: { videoDatas },
+    };
+  } catch (error) {
+    const videoDatas = { success: false };
+    console.log(error);
+    return {
+      props: {
+        videoDatas,
+      },
+    };
+  }
+};

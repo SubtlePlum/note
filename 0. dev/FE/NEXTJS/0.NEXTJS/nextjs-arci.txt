@@ -1,0 +1,75 @@
+next JS
+
+기본 규칙
+컴포넌트는 export default여야한다.
+pages 안의 컴포넌트명은 url이 된다.
+======
+빌드
+yarn create next-app {프로젝트명}
+
+yarn add prettier eslint eslint-config-prettier eslint-plugin-import eslint-plugin-prettier eslint-plugin-react eslint-plugin-react-hooks
+
+// 타입스크립트 사용시 추가
+yarn add @typescript-eslint/eslint-plugin @typescript-eslint/parser
+
+// .eslintrc.json
+{
+  "extends": ["react-app", "prettier/prettier"],
+  "plugins": ["react-hooks", "prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
+    "comma-dangle": ["error", "always-multiline"],
+    "object-curly-spacing": ["error", "always"],
+    "space-in-parens": ["error", "never"],
+    "computed-property-spacing": ["error", "never"],
+    "comma-spacing": ["error", { "before": false, "after": true }],
+    "eol-last": ["error", "always"],
+    "no-tabs": "error",
+    "semi": ["error", "never"],
+    "import/no-anonymous-default-export": 0,
+    "object-shorthand": "error",
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "*", "next": "return" }
+    ],
+    "@typescript-eslint/no-redeclare": 0
+  }
+}
+
+
+// .prettierrc.json
+{
+  "printWidth": 80,
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "tabWidth": 2,
+  "bracketSpacing": true,
+  "endOfLine": "auto",
+  "useTabs": false
+}
+
+
+yarn dev(Starts the development server.)
+yarn build(Builds the app for production.)
+yarn start(Runs the built app in production mode.)
+================================
+env 환경변수가 undefined로 나올 때 처리방법
+next.config.js에 env를 추가해준다.
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  reactStrictMode: true,
+  swcMinify: true,
+  env: {
+    NEXT_PUBLIC_CLOUDFLARE_CLIENT_ID:
+      process.env.NEXT_PUBLIC_CLOUDFLARE_CLIENT_ID,
+    NEXT_PUBLIC_CLOUDFLARE_API_TOKEN:
+      process.env.NEXT_PUBLIC_CLOUDFLARE_API_TOKEN,
+  },
+};
+
+module.exports = nextConfig;

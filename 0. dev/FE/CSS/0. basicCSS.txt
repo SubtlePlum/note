@@ -1,0 +1,439 @@
+
+* {} 모든 태그에 적용
+
+number input 초기화
+&::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+css는 input::
+
+input date 스타일 변경
+input[type="date"]::-webkit-clear-button, input[type="date"]::-webkit-inner-spin-button { 
+ display: none; 
+} 
+input[type="date"]::-webkit-calendar-picker-indicator { 
+ color: red; 
+} 
+input[type="date"] { 
+ background: grey; 
+ color: white; 
+}
+---in React
+background: gray;
+  color: white;
+
+  &::-webkit-clear-button,
+  ::-webkit-inner-spin-button {
+    display: none;
+  }
+  &::-webkit-calender-picker-indicator {
+    color: red;
+  }
+
+<div class="custom-file">
+                        <input type="file" class="custom-file-input" id="file">
+                        <label class="custom-file-label" for="file">사진 선택하기</label>
+</div>
+
+input:focus {outline: none;}
+아웃라인 속성 없애기
+input:-webkit-autofill {
+   -webkit-box-shadow: 0 0 0 1000px #000 inset; === 자동완성 배경색 설정
+   -webkit-text-fill-color: === 자동완성 텍스트 색 설정
+}
+
+input number 화살표 없애기
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input 포커스시 border 없애기
+:focus {
+    outline: none;
+    border-color: rgb(71, 181, 255);
+    box-shadow: 0 0 3px rgb(71, 181, 255);
+
+input radio custom
+input[type="radio"] {
+    display:none;
+}
+
+input[type='radio'],
+input[type='radio']:checked {
+  appearance: none;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 100%;
+  margin-right: 0.1rem;
+}
+
+input[type='radio'] {
+  background-color: $white-color;
+  border: 2px solid $font-color-3;
+}
+input[type='radio']:checked {
+  background-color: $font-color-2;
+}
+
+-------------------------------------------------------------------------------
+
+textarea 줄이고 늘리는 기능 없애기
+textarea{resize:none;}
+스크롤바 없애기
+overflow:hidden
+
+개행처리
+white-space: ~~;
+normal : HTML의 기본 값. 여러 개의 공백은 하나로 표시되고, \n은 무시되며 긴 행은 필요시 Wrap됨
+nowrap : normal과 같으나 긴행이 wrap되지 않음. 글을 포함한 컨테이너를 넘어서 표시
+pre : 여러개의 공백과 개행문자 모두 표현됨. <pre>태그와 같이 동작함. 긴 행은 개행문자에서만 개행이 되고, wrap되지 않음
+pre-line : 여러개의 공백은 하나로 표시되고, 긴 행은 필요시 wrap됨. 개행문자를 만나도 개행됨
+pre-wrap : 여러개의 공백과 개행문자가 모두 보존됨. 개행문자 외에서도 필요시 wrap됨
+
+맞춤법 검사 없애기
+html 태그 attribute에 해당 옵션 추가
+spellcheck="false"
+
+-------------------------------------------------------------------------------
+image 이미지 최적화
+
+object-fit: cover;
+
+// 사진 확대해 보이기
+&:hover {
+      transform: scale(1.05);
+    }
+-------------------------------------------------------------------------------
+
+select 셀렉트 초기화
+
+-o-appearance: none; // 크롬
+  -webkit-appearance: none; // 크롬
+  -moz-appearance: none; // 파폭
+  appearance: none; // 공통
+셀렉트 화살표 넣기
+background:url("url") no-repeat 95% 50%
+
+
+-------------------------------------------------------------------------------
+
+details 디테일 태그 css
+
+마커(불릿) 모양 변경하기
+summary::marker{
+    content: "+ ";
+    font-family: monospace; // 가변 글꼴로 인해 키워드 문자열이 밀려 보이는 현상 제거
+}
+details[open] summary::marker {
+    content: "- ";
+}
+
+
+details 애니메이션
+
+const CommentsLine = styled.details`
+  // base css
+  width: 100vw;
+  & summary {
+  }
+  // toggle mark css
+  & summary::marker {
+    content: "";
+  }
+  &[open] summary {
+    display: none;
+  }
+  & summary:before {
+  }
+  // toggle keyFrame
+  & summary ~ * {
+    animation: closeComments 0.6s;
+    @keyframes closeComments {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+  }
+  &[open] summary ~ * {
+    animation: opneComments 0.6s;
+    @keyframes opneComments {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+`;
+
+-------------------------------------------------------------------------------
+
+공백 없는 표 만들기
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+-------------------------------------------------------------------------------
+a태그
+
+a:link { color:pink; }
+아직 방문하지 않은 링크의 글자색 정의
+a:visited { color:black; }
+사용자가 방문한 적이 있는(클릭한 이후) 링크의 글자색 정의
+a:hover { color:red; }
+마우스를 링크에 올려두었을 때, 글자색을 정의
+a:active { color:green; }
+마우스로 링크를 클릭하고 뗄 때까지의 글자색을 정의
+
+text-decoration-line: none;
+밑줄 없애기
+text-decoration: none;
+밑줄 없애기
+
+React는
+&:hover{
+    
+  }
+
+
+-------------------------------------------------------------------------------
+
+css make styled
+
+택스트 꾸미기
+
+br 줄바꿈
+color 글자 색
+font-size 글자 크기
+font-weight 글자 굵기
+text-shadow 글자 그림자
+
+max-width: 500px;
+width: 95%;
+등으로 처리 가능
+width:max-content로 감싼애만 처리 가능
+
+-------------------------------------------------------------------------------
+
+애니메이션처리(before/after)
+transition: margin-left 0.4s ease-in-out 0s;
+/* property name | duration | timing function | delay */
+
+transition: 0.6s 등으로 전반적인 애니메이션 처리도 가능
+
+animation
+animation-delay: 250ms;
+엘리먼트가 로드되고 나서 언제 애니메이션이 시작될지 지정
+
+/* 애니메이션 이름 */
+  animation-name: startElements;
+  animation-duration:2s;
+  animation-duration: leaner;
+  animation-iteration-count:3;
+  animation-direction:alternate;
+  animation-fill-mode: forwards;
+
+@-webkit-keyframes startElements {
+  0% {
+    left:100px;
+  }
+  100% {
+    left:300px;
+  }
+}
+
+animation-name : 애니메이션의 중간 상태를 지정하기 위한 이름을 정의합니다. 
+animation-duration : 한 싸이클의 애니메이션이 얼마에 걸쳐 일어날지 지정합니다.
+animation-delay :엘리먼트가 로드되고 나서 언제 애니메이션이 시작될지 지정합니다.
+animation-direction : 애니메이션이 종료되고 다시 처음부터 시작할지 역방향으로 진행할지 지정합니다.
+animation-iteration-count : 애니메이션이 몇 번 반복될지 지정합니다. infinite 로 지정하여 무한히 반복할 수 있습니다.
+animation-play-state : 애니메이션을 멈추거나 다시 시작할 수 있습니다.
+animation-timing-function : 중간 상태들의 전환을 어떤 시간간격으로 진행할지 지정합니다.
+animation-fill-mode : 애니메이션이 시작되기 전이나 끝나고 난 후 어떤 값이 적용될지 지정합니다.
+- 중간 상태는 @keyframes 규칙을 이용하여 기술합니다.
+
+
+-------------------------------------------------------------------------------
+여백
+margin: 겉 여백 / 상 좌 하 우
+paddin:  밖 여백 / 상 좌 하 우
+margin: auto; 마진을 최대한 주는 것
+margin: 0 auto; 가운데 맞춤처럼 사용
+cursor:default; 기본화살표
+pointer 누르기버튼
+
+-------------------------------------------------------------------------------
+
+background 배경
+
+background-color 배경색
+>color-mix( , ) 색상 혼합 비율 설정
+>accent-color 강조색 자동 지정
+>color-contrast() 텍스트/배경 대비색 자동 지정or () 안 색상 기입으로 반 수동 지정
+background-image 배경 이미지 지정
+box-shadow 그림자 효과
+border-radius 사각형 부드럽게
+opacity 투명도 조절
+background-color: transparent; 투명
+
+background-image: url() 이미지 url 연동
+background-size:cover; 이미지가 사이즈에 맞게 커버
+background-position: center; 이미지가 정 중앙으로
+background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)) 이미지 어둡게하기(url 앞에 , 넣고 첫번째에 기재)
+색상을 지정한 후 콤마를 찍기 전에 00%를 설정하면, 그 지점까지 색이 유지
+ex)background: linear-gradient(lightCyan 30%, skyBlue, deepSkyBlue);
+대각선 방향으로 그라데이션을 입히고 싶을 때 deg 사용 가능
+ex)background: linear-gradient(45deg, Violet, Orange);
+
+background-attachment: 배경 이미지를 스크롤과는 무관하게 해당 위치에 고정시킴.
+
+-------------------------------------------------------------------------------
+
+viewport Units - 웹사이트를 볼 수 있는 영역 또는 윈도우
+vw 넓이
+vh 높이
+모바일 유용
+100vh 화면 높이의 100%
+100vw 화면 너비의 100%
+lvh 가장 큰 뷰포트 높이
+svh 가장 작은 뷰포트 높이
+dvh 동적 뷰포트 높이 : 상단 네비게이션(url바, 하단 네비 바)이 있음
+
+-------------------------------------------------------------------------------
+
+progress 편집
+progress {
+  accent-color: hsl(39, 100%, 50%);
+}
+
+-------------------------------------------------------------------------------
+스크롤
+
+오버플로우 - 요소 내의 컨텐츠가 너무 커서 모두 보여주기 힘들때 처리하는 방식
+overflow
+- visible : 기본 값. 넘칠 경우 컨텐츠가 상자 밖으로 보여짐.
+- hidden : 넘치는 부분은 잘려서 보여지지 않음.
+- scroll : 스크롤바가 추가되어 스크롤할 수 있음.(가로, 세로 모두 추가 가능)
+- auto : 컨텐츠 량에 따라 스크롤바를 추가할지 자동으로 결정됨( 필요에 따라 가로, 세로 별도로 추가가능)
+
+custom
+::-webkit-scrollbar : 스크롤바 전체
+::-webkit-scrollbar-thumb : 스크롤 막대
+::-webkit-scrollbar-button : 스크롤 막대의 버튼
+::-webkit-scrollbar-track : 스크롤 막대 외부
+
+ex
+  &::-webkit-scrollbar {
+    width: 3px;
+    background-color: #aaa;
+  }
+  &::-webkit-scrollbar-thumb {
+    height: 10vh;
+    background: #575757;
+  }
+
+-------------------------------------------------------------------------------
+
+더블클릭시 파란색 선택 기능 막는 방법
+
+
+span.no_selection {
+user-select: none;
+    -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+    -moz-user-select: none; /* mozilla browsers */
+    -khtml-user-select: none; /* webkit (konqueror) browsers */
+    -ms-user-select: none; /* IE10+ */
+}
+
+-------------------------------------------------------------------------------
+
+모바일처리
+react 반응형 css - @midea-query
+midea query 작성법
+@media only|not 미디어유형 and| (조건문width:500px){적용할CSS}
+미디어 유형 생략시 default값은 all
+all 모든 장치
+screen 컴퓨터 or 스마트기기
+tv 영상과 음성이 함께 출력되는 장치
+projection 프로젝터 장치
+speech 음성 출력 장치
+
+const syltedComponent = styled.div`
+ width:200px
+width 웹페이지 가로 너비
+height 웹페이지 세로 높이
+device-width 기기의 가로 너비
+device-height 기기의 세로 높이
+orientation 기기의 화면방향 (portrait:세로,landscape:가로)
+aspect-ratio 화면 비율
+scan TV의 스캔 방식
+grid 기기의 그리드/비트맵
+
+@media only screen and (max-width: 500px){
+	flex-direction: column;
+}
+`
+
+분기점
+1. 낮은 해상도의 PC, 태블릿 가로 : ~1024px 
+2. 테블릿 가로 : 768px ~ 1023px
+3. 모바일 가로, 태블릿 : 480px ~ 767px
+4. 모바일 : ~ 480px
+
+/* PC (해상도 1024px)*/
+@media all and (min-width:1024px) {}
+
+/* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/
+@media all and (min-width:768px) and (max-width:1023px) {}
+
+/* 모바일 가로, 모바일 세로 (해상도 480px ~ 767px)*/
+@media all and (max-width:767px) {}
+
+useState 값을 통해 ${} props 값도 적용 가능
+
+
+
+-------------------------------------------------------------------------------
+position 타입 - 타입을 선언하고 top bottum left right 속성으로 배치한다.
+relative
+일반적인 문서의 흐름에 따라 배치한다.
+요소 자기 자신의 원래 위치를 기준으로 배치한다.
+원래 위치를 기준으로 얼마만큼 떨어질지 결정한다.(top bottom...)
+위치를 이동하면서 다른 요소에 영향을 주지 않는다
+문서 상 원래 위치가 그대로 유지된다.(header 등에 이용 용이)
+
+absolute
+요소를 일반적인 문서 흐름에서 제거한다.
+가장 가까운 위치에 있는 부모 요소를 기준으로 배치한다.
+부모 요소 위치를 기준으로 얼마만큼 떨어질지 결정한다.(top bottom...)
+부모 중 Position을 가진 요소가 없다면 초기 컨테이닝 블록(<body>요소)를 기준으로 삼는다.
+문서 상 원래 위치를 잃어버린다.(아래에 있는 div가 해당 자리를 차지한다.
+
+Fixed
+요소를 일반적인 문서 흐름에서 제거한다.
+페이지 레이아웃에 어떠한 공간도 배정하지 않는다.
+뷰포트를 기준점으로 붙어있다.(화면에 붙어있다.)
+
+stickey
+스크롤 영역 기준으로 배치
+
+-------------------------------------------------------------------------------
+
+grid template
+display: grid;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  grid-template-rows: 100px 100px;
+  grid-template-columns: 130px 130px 130px 130px;
+  grid-gap:30px;
+

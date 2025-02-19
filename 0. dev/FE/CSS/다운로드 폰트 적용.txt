@@ -1,0 +1,25 @@
+1. 폰트 다운로드
+TTF (윈도우) OTF (맥)
+
+2. 작업중인 프로젝트에 압축 해제한 파일을 이동
+ex) styles/fonts/ttf파일
+
+3. global css파일 설정
+@font-face {
+  font-family: maplestory;
+  src: url("./fonts/Maplestory\ Light.ttf");
+}
+
+4. 평소 사용하는것처럼 font-family: maplestory 와 같이 사용
+
+
+글꼴 속성
+https://www.codingfactory.net/10551
+
+font-family: font | initial | inherit
+
+serif : 삐침 있는 명조 계열의 글꼴
+sans-serif : 삐침 없고 굵기가 일정한 고딕 계열의 글꼴
+monospace : 글자 폭과 간격이 일정한 글꼴
+cursive : 손으로 쓴 것 같은 필기 계열의 글꼴
+fantasy : 화려한 글꼴

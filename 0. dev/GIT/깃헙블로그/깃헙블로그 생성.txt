@@ -1,0 +1,108 @@
+레포지토리 생성
+username.github.io
+
+settings -> pages에서 published 확인가능 (배포되는데 시간 조금 소요됨 5-10분)
+
+React, Next.js 기준으로 설정
+
+# 현재 디렉토리에 Next 시작
+yarn create next-app . --typescript
+
+# 스타일 컴포넌트
+yarn add styled-components @types/styled-components
+
+# prettier
+yarn add prettier --save-dev
+
+# eslint-config-prettier - formatting 관련 룰 중복 방지
+yarn add eslint-config-prettier --save-dev
+
+# plugin
+yarn add eslint-plugin-prettier
+
+.eslintrc.json - nextjs --typescript 자동적용
+{
+  "extends": ["next/core-web-vitals", "prettier/prettier"],
+  "plugins": ["react-hooks", "prettier"],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "no-var": "error", // var 금지
+    "no-multiple-empty-lines": "error", // 여러 줄 공백 금지
+    "no-console": ["warn", { "allow": ["warn", "error", "info"] }], // console.log() 금지
+    "eqeqeq": "error", // 일치 연산자 사용 필수
+    "react-hooks/rules-of-hooks": "error",
+    "@typescript-eslint/no-redeclare": 0
+  }
+}
+
+.prettierrc.js
+module.exports = {
+    printWidth: 80, //코드 한줄 최대치
+    semi: true, //코드 마지막에 세미콜론
+    singleQuote: false, //문자열을 작은따옴표로 작성할것인지(false = 큰 따옴표)
+    trailingComma: 'all', //객체나 배열 등에 맨 마지막에도 콤마
+    tabWidth: 2, //들여쓰기 2칸(스페이스 2칸)
+    bracketSpacing: true, //객체 리터럴에서 괄호에 공백 삽입 여부
+    endOfLine: 'auto',
+    useTabs: false, //탭 대신 스페이스
+    arrowParens: 'avoid', // 화살표 함수에서 매개변수를 하나만 받을때 괄호 생략
+  };
+
+# gh-pages 설치
+yarn add -D gh-pages
+or
+yarn add gh-pages --save-dev (o)
+
+# package.json
+홈페이지 추가 (최상단 name 위에 추가)
+"homepage": "https://lee-yo-han.github.io",
+
+# script 추가 및 수정
+"build": "next build && next export", (수정)
+"predeploy": "npm run build",
+"deploy": "touch out/.nojekyll && gh-pages -d out --dotfiles"
+
+-- touch out/.nojekyll 
+본래 gitpages가 jekyll 기반으로 _{filename}을
+특수 리소스로 간주하고 최종 사이트에 복사하지 않기때문에
+jekyll을 사용하지 않는다고 명시해 정상적으로 처리될 수 있도록 설정하기 위함
+
+gh-pages -d out --dotfiles
+현재 레포의 임시 복제본 생성 후, gh-pages브랜치가 없는 경우 브랜치생성.
+기본 경로의 모든 파일 또는 선택적  src 구성의 패턴과 일치하는 파일만 복사하고
+모든 변경 사항 커밋 후 푸시됨.
+이미 gh-pages브랜치가 있는경우 
+제공된 파일에서 커밋을 추가하기 전에 원격의 모든 커밋으로 업데이트됨
+
+src패턴과 일치하는 도트 파일도 포함시킴
+
+참조: https://github.com/tschaub/gh-pages
+
+# next.config.js 수정
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: false,
+  images: {
+    unoptimized: true,
+  },
+  compiler: {
+    styledComponents: true,
+  },
+};
+
+module.exports = nextConfig;
+
+# yarn deploy 실행
+실행 시 tought 를 사용할 수 없다는 에러가 날 수 있음
+git bash로 실행해줄 것
+
+Export successful. Files written to D:\0. CORDING\INDI-PROJECT\github-blog\out
+$ gh-pages -d out --dotfiles
+Published
+
+위 메세지가 뜨면 repository => settings => gitpages 의 Branch에
+gh-pages가 생성됨
+배포 브렌치로 설정해준 후 저장

@@ -1,0 +1,89 @@
+next TS
+
+yarn create next-app . --typescript
+
+// 스타일 컴포넌트
+yarn add styled-components @types/styled-components
+yarn add @types/styled-components
+
+prettier
+yarn add prettier --save-dev
+
+허스키 종속성용
+yarn add eslint-plugin-prettier
+
+eslint-config-prettier
+yarn add eslint-config-prettier --save-dev
+formatting 관련 룰 중복 방지를 위해 설치
+
+허스키 종속성용 -- 해당 설정 미사용
+yarn add eslint-plugin-simple-import-sort
+
+.eslintrc
+module.exports = {
+    root: true,
+    parser: "@typescript-eslint/parser",
+    plugins: ["@typescript-eslint", "prettier"],
+    parserOptions: {
+      project: "./tsconfig.json",
+    },
+      "env": {
+    "browser": true,
+    "node": true
+  },
+    extends: [
+      "plugin:@typescript-eslint/recommended",
+      "airbnb",
+      "airbnb-typescript",
+      "plugin:prettier/recommended",
+    ],
+    rules: {
+      // 'React' must be in scope when using JSX 에러 지우기(Next.js)
+      "react/react-in-jsx-scope": "off",
+      // ts파일에서 tsx구문 허용(Next.js)
+      "react/jsx-filename-extension": [1, { extensions: [".ts", ".tsx"] }], //should add ".ts" if typescript project
+    },
+  };
+
+or --------
+####### 현재적용 .eslintrc.json - nextjs --typescript 자동적용
+{
+  "extends": ["next/core-web-vitals", "prettier/prettier"],
+  "plugins": ["react-hooks", "prettier"],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "no-var": "error", // var 금지
+    "no-multiple-empty-lines": "error", // 여러 줄 공백 금지
+    "no-console": ["warn", { "allow": ["warn", "error", "info"] }], // console.log() 금지
+    "eqeqeq": "error", // 일치 연산자 사용 필수
+    "react-hooks/rules-of-hooks": "error",
+    "@typescript-eslint/no-redeclare": 0
+  }
+}
+
+
+.prettierrc.js
+module.exports = {
+    printWidth: 80, //코드 한줄 최대치
+    semi: true, //코드 마지막에 세미콜론
+    singleQuote: false, //문자열을 작은따옴표로 작성할것인지(false = 큰 따옴표)
+    trailingComma: 'all', //객체나 배열 등에 맨 마지막에도 콤마
+    tabWidth: 2, //들여쓰기 2칸(스페이스 2칸)
+    bracketSpacing: true, //객체 리터럴에서 괄호에 공백 삽입 여부
+    endOfLine: 'auto',
+    useTabs: false, //탭 대신 스페이스
+    arrowParens: 'avoid', // 화살표 함수에서 매개변수를 하나만 받을때 괄호 생략
+  };
+
+## next.config.js
+config에 아래 항목 추가
+compiler: {
+    styledComponents: true,
+  },
+
+
+
+

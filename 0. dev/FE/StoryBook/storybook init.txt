@@ -1,0 +1,9 @@
+Storybook 사용법
+
+React 등과 같은 프레임워크 설치
+
+npx storybook@latest init
+
+yarn storybook
+or
+npm run storybook
